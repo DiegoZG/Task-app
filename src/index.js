@@ -28,17 +28,19 @@ app.listen(port, () => {
     console.log('Server is up on port' + port)
 })
 
-const pet = {
-    name: 'hal'
-}
+const Task = require('./models/task')
+const User = require('./models/user')
 
-pet.toJSON = function () {
-    console.log(this)
-    return this
-}
+// const main = async () => {
+//     // const task = await Task.findById('5f7658a51cbfe11cb077cda2')
+//     // await task.populate('owner').execPopulate()
+//     // console.log(task.owner)
+//     const user = await User.findById('5f7655d2ca675b1bdfac626c')
+//     await user.populate('tasks').execPopulate()
+//     console.log(user.tasks)
+// }
 
-console.log(JSON.stringify(pet))
-
+// main()
 // const jwt = require('jsonwebtoken')
 
 // const myFunction = async () => {
