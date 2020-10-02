@@ -15,11 +15,24 @@ router.post('/tasks', auth, async (req, res) => {
         res.status(400).send(e)
     }
 })
-
+//GET / tasks?completed=true
+//limit skip
+//GET / task?limit=10&skip=0 => first page => skip=10 => second page
 router.get('/tasks', auth, async (req, res) => {
+    const match = {}
+    if(req.query.completed) {
+        match.completed = req.query.completed === 'true'
+    }
     try {
         // const tasks = await Task.find({ owner: req.user.id})
-        await req.user.populate('tasks').execPopulate()
+        await req.user.populate({
+            path: 'tasks',
+            match,
+            options: {
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip)
+            }
+        }).execPopulate()
        
         res.send(req.user.tasks)
     } catch {
